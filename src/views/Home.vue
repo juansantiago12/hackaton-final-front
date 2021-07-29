@@ -18,7 +18,7 @@
                   </ul>
                </div>
                <div class="menu-rigth">
-                  <a href=""><i class="fas fa-shopping-cart"></i></a>
+                  <router-link to="/carrito"><i class="fas fa-shopping-cart"></i></router-link>
                   <a href=""><i class="fas fa-bars" @click.prevent="mostrarMenu"></i></a>
                </div>
             </div>
@@ -44,26 +44,10 @@
    <div class="cursos-container">
       <h2>Conoce nuestros Programas de Especialización</h2>
       <div class="grid">
-         <article>
-            <img src="../assets/curso.jpg" alt="" />
+         <article v-for="(curso, index) in cursos" :key="index">
+            <img :src="curso.image" alt="" />
             <div class="curso-text">
-               <h3>Desarrollo Front-End</h3>
-               <button class="btn">Ver más</button>
-               <button class="btn-carrito">Agregar</button>
-            </div>
-         </article>
-         <article>
-            <img src="../assets/curso.jpg" alt="" />
-            <div class="curso-text">
-               <h3>Desarrollo Front-End</h3>
-               <button class="btn">Ver más</button>
-               <button class="btn-carrito">Agregar</button>
-            </div>
-         </article>
-         <article>
-            <img src="../assets/curso.jpg" alt="" />
-            <div class="curso-text">
-               <h3>Desarrollo Front-End</h3>
+               <h3>{{ curso.nombre }}</h3>
                <button class="btn">Ver más</button>
                <button class="btn-carrito">Agregar</button>
             </div>
@@ -154,14 +138,20 @@
 
 <script>
 // import ListaCursos from '@/components/ListaCursos.vue';
+import { mapActions, mapState } from 'vuex';
 
 export default {
+   computed: {
+      ...mapState(['cursos']),
+   },
    data() {
       return {
          mostrar: '',
+         // cursos: [],
       };
    },
    methods: {
+      ...mapActions(['getCursosAction']),
       mostrarMenu() {
          if (this.mostrar == 'show') {
             this.mostrar = '';
@@ -169,7 +159,21 @@ export default {
             this.mostrar = 'show';
          }
       },
+      // async getCursos() {
+      //    const response = await fetch('https://no-llores-mas.herokuapp.com/cursos/');
+      //    const data = await response.json();
+      //    this.cursos = data;
+      //    console.log(this.cursos);
+      // },
    },
+
+   created() {
+      this.getCursosAction();
+   },
+
+   // created() {
+   //    this.getCursos();
+   // },
    name: 'Home',
    // components: {
    //    ListaCursos,
