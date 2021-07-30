@@ -23,25 +23,45 @@
          </div>
       </nav>
       <section class="carrito">
-         <div class="cursos">
-            <article>
-               <img src="" alt="" />
-               <div class="curso-text">
-                  <h3>Gestión de Envaces, Empaques y Embalajes</h3>
+         <div class="carrito-content">
+            <div class="cursos">
+               <h2>Carrito de compras</h2>
+               <article v-for="(curso, index) in cursoAgregado" :key="index">
+                  <img class="curso-img" :src="curso.image" alt="" />
+                  <div class="curso-text">
+                     <h3>{{ curso.nombre }}</h3>
+                     <p>Descuento 25%</p>
+                     <a href="#">Eliminar</a>
+                     <p class="precio">S/ {{ curso.precio }}</p>
+                  </div>
+               </article>
+            </div>
+            <div class="subtotal">
+               <div class="form">
+                  <div>
+                     <p>Subtotal</p>
+                     <p>S/600.00</p>
+                  </div>
+                  <input type="text" placeholder="Agregar un código de descuento" />
+                  <button>Continuar</button>
                </div>
-            </article>
+            </div>
          </div>
-         <div class="subtotal"></div>
       </section>
    </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
    data() {
       return {
          mostrar: '',
       };
+   },
+   computed: {
+      ...mapState(['cursoAgregado']),
    },
    methods: {
       mostrarMenu() {
@@ -52,6 +72,7 @@ export default {
          }
       },
    },
+
    name: 'Carrito',
 };
 </script>
@@ -135,6 +156,110 @@ nav {
    }
    .menu-list li {
       padding: 15px 0;
+   }
+}
+
+/* seccion cursos comprados */
+.carrito {
+   margin-top: 30px;
+}
+.carrito-content {
+   max-width: 90%;
+   margin-left: auto;
+   margin-right: auto;
+   display: grid;
+   grid-template-columns: 50% 1fr;
+}
+.cursos h2 {
+   margin-bottom: 30px;
+}
+.cursos article {
+   display: flex;
+   justify-content: right;
+   align-items: center;
+   margin: 20px 0;
+}
+.curso-img {
+   display: block;
+   max-width: 150px;
+   border-radius: 5px;
+}
+.curso-text {
+   margin-left: 20px;
+}
+.curso-text h3 {
+   font-size: 0.9rem;
+   font-weight: bold;
+   margin-bottom: 5px;
+}
+.curso-text p {
+   color: #5640ff;
+   font-size: 0.9rem;
+   font-weight: bold;
+   margin-bottom: 5px;
+}
+.curso-text a {
+   color: #5640ff;
+   font-size: 0.9rem;
+   font-weight: bold;
+}
+.precio {
+   padding-left: 70%;
+   font-size: 0.9rem;
+   font-weight: bold;
+}
+
+/* subtotal  */
+.form {
+   margin-top: 100px;
+   max-width: 400px;
+   margin-right: auto;
+   margin-left: auto;
+   padding: 30px;
+   border-radius: 5px;
+   background-color: #f8f8fa;
+}
+.form div {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 20px;
+   color: #5640ff;
+   font-weight: bold;
+   font-size: 20px;
+}
+.form input {
+   width: 100%;
+   padding: 10px;
+   margin-bottom: 30px;
+   border: 1px solid black;
+   border-radius: 5px;
+}
+.form button {
+   width: 100%;
+   padding: 10px;
+   background-color: #5640ff;
+   color: white;
+   font-weight: bold;
+   border: none;
+   border-radius: 5px;
+}
+::placeholder {
+   opacity: 0.5;
+}
+.form button:hover {
+   opacity: 0.5;
+   cursor: pointer;
+}
+/* media query carrito */
+@media screen and (max-width: 900px) {
+   .carrito-content {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      align-items: center;
+   }
+   .form {
+      margin-top: 30px;
    }
 }
 </style>

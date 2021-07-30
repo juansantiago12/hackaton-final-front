@@ -42,14 +42,14 @@
    </header>
 
    <div class="cursos-container">
-      <h2>Conoce nuestros Programas de Especialización</h2>
+      <h2>Conoce nuestros programas de Especialización</h2>
       <div class="grid">
          <article v-for="(curso, index) in cursos" :key="index">
             <img :src="curso.image" alt="" />
             <div class="curso-text">
                <h3>{{ curso.nombre }}</h3>
                <button class="btn">Ver más</button>
-               <button class="btn-carrito">Agregar</button>
+               <button class="btn-carrito" @click="agregarId(curso.id)">Agregar</button>
             </div>
          </article>
       </div>
@@ -141,17 +141,19 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
-   computed: {
-      ...mapState(['cursos']),
-   },
    data() {
       return {
          mostrar: '',
-         // cursos: [],
       };
    },
+
+   computed: {
+      ...mapState(['cursos']),
+   },
+
    methods: {
       ...mapActions(['getCursosAction']),
+      ...mapActions(['addCursoAction']),
       mostrarMenu() {
          if (this.mostrar == 'show') {
             this.mostrar = '';
@@ -159,25 +161,15 @@ export default {
             this.mostrar = 'show';
          }
       },
-      // async getCursos() {
-      //    const response = await fetch('https://no-llores-mas.herokuapp.com/cursos/');
-      //    const data = await response.json();
-      //    this.cursos = data;
-      //    console.log(this.cursos);
-      // },
+      agregarId(id) {
+         this.addCursoAction(id);
+      },
    },
 
    created() {
       this.getCursosAction();
    },
-
-   // created() {
-   //    this.getCursos();
-   // },
    name: 'Home',
-   // components: {
-   //    ListaCursos,
-   // },
 };
 </script>
 
@@ -239,7 +231,9 @@ header {
    margin: 0 10px;
    color: white;
 }
-
+.menu-rigth a:hover {
+   font-size: 20px;
+}
 /* seccion banner */
 .banner {
    max-width: 90%;
@@ -380,8 +374,12 @@ header {
 }
 .grid article img {
    width: 100%;
+   height: 200px;
    border-top-left-radius: 10px;
    border-top-right-radius: 10px;
+}
+.curso-text {
+   padding: 0 10px;
 }
 .curso-text h3 {
    margin: 8px 0;
