@@ -31,7 +31,7 @@
                   <div class="curso-text">
                      <h3>{{ curso.nombre }}</h3>
                      <p>Descuento 25%</p>
-                     <a href="#">Eliminar</a>
+                     <button @click="eliminarId(curso.id)">Eliminar</button>
                      <p class="precio">S/ {{ curso.precio }}</p>
                   </div>
                </article>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
    data() {
@@ -64,12 +64,16 @@ export default {
       ...mapState(['cursoAgregado']),
    },
    methods: {
+      ...mapActions(['eliminarCursoAction']),
       mostrarMenu() {
          if (this.mostrar == 'show') {
             this.mostrar = '';
          } else {
             this.mostrar = 'show';
          }
+      },
+      eliminarId(id) {
+         this.eliminarCursoAction(id);
       },
    },
 

@@ -17,6 +17,11 @@ export default createStore({
          state.cursoAgregado.push(element[0]);
          console.log(state.cursoAgregado);
       },
+      eliminarCursoMutation(state, payload) {
+         state.cursoAgregado = state.cursoAgregado.filter((item) => {
+            return item.id !== payload;
+         });
+      },
    },
    actions: {
       async getCursosAction({ commit }) {
@@ -26,6 +31,9 @@ export default createStore({
       },
       addCursoAction({ commit }, id) {
          commit('addCursoMutation', id);
+      },
+      eliminarCursoAction({ commit }, id) {
+         commit('eliminarCursoMutation', id);
       },
    },
    modules: {},
