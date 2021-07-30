@@ -40,7 +40,7 @@
                <div class="form">
                   <div>
                      <p>Subtotal</p>
-                     <p>S/600.00</p>
+                     <p>{{ subtotal }}</p>
                   </div>
                   <input type="text" placeholder="Agregar un código de descuento" />
                   <button>Continuar</button>
@@ -62,6 +62,7 @@ export default {
    },
    computed: {
       ...mapState(['cursoAgregado']),
+      ...mapState(['subtotal']),
    },
    methods: {
       ...mapActions(['eliminarCursoAction']),
@@ -202,10 +203,17 @@ nav {
    font-weight: bold;
    margin-bottom: 5px;
 }
-.curso-text a {
-   color: #5640ff;
-   font-size: 0.9rem;
+.curso-text button {
+   background-color: #ff1558;
+   color: white;
+   border: none;
+   padding: 5px;
+   border-radius: 3px;
    font-weight: bold;
+}
+.curso-text button:hover {
+   cursor: pointer;
+   opacity: 0.5;
 }
 .precio {
    padding-left: 70%;
