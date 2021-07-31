@@ -8,7 +8,7 @@
   <div class="containe color">
     <header class="row nav">
       <div class="col-8">
-        <i><img src="../assets/idat2.png" alt="" class="logo"/></i>
+        <i><img src="../assets/idat2.png" alt="" class="logo" /></i>
       </div>
       <div class="col-12 col-sm-1 text-white letra pt-2">Wenas</div>
       <div class="col-12 col-sm-1 text-white letra pt-2">asd</div>
@@ -76,75 +76,18 @@
         ><span class="letra mt-3 mx-2 fs-5">Plan de estudios</span></i
       >
       <table
-        class="
-            table table-light table-responsive
-            w-75
-            mx-5
-            mt-3
-            col-sm-3
-            cell
-          "
+        class="table table-light table-responsive w-50 mx-5 mt-3 col-sm-3 cell"
       >
         <tbody>
-          <tr>
+          <tr v-for="hola in users.unidades" :key="hola.id">
             <td class="w-25 pt-5">
               <i class="fas fa-file-alt"
-                ><span class="letra mx-3"
-                  >Introducción a la Gestión Deportiva</span
-                ></i
+                ><span class="letra mx-3">{{ hola.nombre }}</span></i
               >
             </td>
-            <td class="">
-              <ul>
-                <li>Introducción a la gestión en el deporte</li>
-                <li>Instituciones deportivas en el Perú</li>
-                <li>Deporte amateur y deporte profesional</li>
-              </ul>
-            </td>
-            <td class="">
-              <ul>
-                <li>Introducción a la gestión en el deporte</li>
-                <li>Instituciones deportivas en el Perú</li>
-                <li>Deporte amateur y deporte profesional</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td class="w-25 pt-5">
-              <i class="fas fa-file-alt"
-                ><span class="letra mx-3"
-                  >Introducción a la Gestión Deportiva</span
-                ></i
-              >
-            </td>
-            <td>
-              <ul>
-                <li>Introducción a la gestión en el deporte</li>
-                <li>Instituciones deportivas en el Perú</li>
-                <li>Deporte amateur y deporte profesional</li>
-              </ul>
-            </td>
-            <td>
-              <ul>
-                <li>Introducción a la gestión en el deporte</li>
-                <li>Instituciones deportivas en el Perú</li>
-                <li>Deporte amateur y deporte profesional</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td class="w-25 pt-5">
-              <i class="fas fa-file-alt"
-                ><span class="letra mx-3"
-                  >Introducción a la Gestión Deportiva</span
-                ></i
-              >
-            </td>
-            <td>
-              <ul>
-                <li>Introducción a la gestión en el deporte</li>
-                <li>Instituciones deportivas en el Perú</li>
-                <li>Deporte amateur y deporte profesional</li>
+            <td class="w-75">
+              <ul v-for="hola2 in hola.lecciones" :key="hola2.id">
+                <li>{{ hola2.nombre }}</li>
               </ul>
             </td>
           </tr>
