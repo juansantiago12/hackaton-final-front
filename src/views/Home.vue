@@ -14,7 +14,9 @@
                      </li>
                      <li class="menu-item"><a href="#" class="menu-link">Contacts</a></li>
                      <li class="menu-item"><a href="#" class="menu-link">Services</a></li>
-                     <li class="menu-item"><a href="#" class="menu-link">More</a></li>
+                     <li class="menu-item">
+                        <router-link to="/login" class="menu-link">Login</router-link>
+                     </li>
                   </ul>
                </div>
                <div class="menu-rigth">
@@ -112,17 +114,27 @@
    </section>
 
    <section class="formulario">
-      <form class="form-register">
+      <form class="form-register" @submit.prevent="getInteresado">
          <p>Postula y obtén un 10% de descuento ne el programa</p>
-         <input class="control" type="text" placeholder="NOMBRE" />
-         <input class="control" type="text" placeholder="CELULAR" />
-         <input class="control" type="text" placeholder="CORREO ELECTRONICO" />
-         <input class="control" type="text" placeholder="PROGRAMA" />
+         <input class="control" type="text" placeholder="NOMBRE" v-model="user.nombre" />
+         <input class="control" type="number" placeholder="CELULAR" v-model="user.celular" />
+         <input
+            class="control"
+            type="email"
+            placeholder="CORREO ELECTRONICO"
+            v-model="user.correo"
+         />
+         <!-- <input class="control" type="text" placeholder="PROGRAMA" v-model="user.curso" /> -->
+         <select class="control" name="programa" id="program" v-model="user.curso">
+            <option :value="curso.id" v-for="(curso, index) in cursos" :key="index">{{
+               curso.nombre
+            }}</option>
+         </select>
          <div class="check">
-            <input type="checkbox" value="privacidad" id="privacidad" />
+            <input type="checkbox" value="privacidad" id="privacidad" v-model="aceptar" />
             <label for="privacidad">Acepto las Políticas de privacidad.</label>
          </div>
-         <input type="submit" value="Quiero postular" class="control-btn" />
+         <input type="submit" value="Quiero postular" class="control-btn" @click="postUser()" />
       </form>
    </section>
    <footer>
@@ -144,6 +156,13 @@ export default {
    data() {
       return {
          mostrar: '',
+         user: {
+            nombre: '',
+            celular: '',
+            correo: '',
+            curso: '',
+         },
+         aceptar: false,
       };
    },
 
@@ -163,6 +182,36 @@ export default {
       },
       agregarId(id) {
          this.addCursoAction(id);
+      },
+
+      getInteresado() {
+         if (
+            this.user.nombre === '' ||
+            this.user.celular === '' ||
+            this.user.correo === '' ||
+            this.aceptar === false
+         ) {
+            alert('falta campos por llenar');
+         } else {
+            console.log(this.user);
+         }
+      },
+
+      async postUser() {
+         const request = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(this.user),
+         };
+         const response = await fetch('https://no-llores-mas.herokuapp.com/interesados/', request);
+         const data = await response.json();
+         console.log(data);
+         this.user = {
+            nombre: '',
+            celular: '',
+            correo: '',
+            curso: '',
+         };
       },
    },
 

@@ -26,6 +26,8 @@ export default createStore({
             state.cursoAgregado.forEach((item) => {
                state.subtotal += parseFloat(item.precio);
             });
+         } else {
+            alert('Este curso ya está agregado');
          }
          console.log(state.cursoAgregado);
          console.log(state.subtotal);
