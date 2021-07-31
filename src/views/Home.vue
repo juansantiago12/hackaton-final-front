@@ -50,7 +50,7 @@
             <img :src="curso.image" alt="" />
             <div class="curso-text">
                <h3>{{ curso.nombre }}</h3>
-               <button class="btn">Ver más</button>
+               <router-link :to="`/infocurso/${curso.id}`" class="btn">Ver más</router-link>
                <button class="btn-carrito" @click="agregarId(curso.id)">Agregar</button>
             </div>
          </article>

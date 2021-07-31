@@ -23,6 +23,11 @@ const routes = [
       component: Carrito,
    },
    {
+      path: '/infocurso/:id',
+      name: 'InfoCurso',
+      component: () => import(/* webpackChunkName: "about" */ '../views/InfoCurso.vue'),
+   },
+   {
       path: '/login',
       name: 'Login',
       component: Login,
