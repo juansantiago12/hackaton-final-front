@@ -235,11 +235,14 @@ a {
 li {
    list-style: none;
 }
-/* header {
-   max-height: 100vh;
-} */
+header {
+   height: 100vh;
+}
 .header {
    background-image: url('../assets/banner.png');
+   background-repeat: no-repeat;
+   background-size: cover;
+   min-height: 70%;
 }
 /* seccion menu */
 .menu {
@@ -280,27 +283,26 @@ li {
    font-size: 20px;
 }
 /* seccion banner */
+/* .section-banner {
+   
+} */
 .banner {
    max-width: 90%;
+   height: 100%;
    margin-right: auto;
    margin-left: auto;
-   display: flex;
-   align-items: center;
-   justify-content: right;
-   margin-top: 20px;
+   margin-top: 40px;
 }
 .banner-text {
    color: white;
-   margin-top: 100px;
-   text-align: left;
-   margin-bottom: 100px;
+   width: 100%;
 }
 .banner h1 {
-   font-size: 3rem;
+   font-size: 50px;
 }
 .banner p {
    margin-top: 40px;
-   font-size: 1.2rem;
+   font-size: 25px;
 }
 
 /* seccion formulario */
@@ -350,7 +352,7 @@ li {
 }
 
 /* media query formulario */
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 850px) {
    .form-register {
       position: absolute;
       top: 100px;
@@ -362,10 +364,11 @@ li {
 }
 
 /* seccion grupos */
-
+.section-grupos {
+   margin-top: 70px;
+}
 .grupos {
    max-width: 90%;
-   margin-top: 30px;
    margin-left: auto;
    margin-right: auto;
    display: flex;
@@ -564,14 +567,24 @@ footer {
 
 /* media query comunidad */
 @media screen and (max-width: 650px) {
+   .banner-text h1 {
+      font-size: 35px;
+   }
+   .banner-text p {
+      font-size: 22px;
+   }
    .comunidad-content {
       min-height: 550px;
    }
    .comunidad-content img {
-      left: 20%;
+      width: 300px;
+      top: -120px;
+      left: 0;
+      right: 0;
+      margin: auto;
    }
    .comunidad-text {
-      margin-top: 300px;
+      margin-top: 250px;
    }
    .comunidad-content {
       margin-left: auto;
