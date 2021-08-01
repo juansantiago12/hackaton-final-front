@@ -5,51 +5,73 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
     crossorigin="anonymous"
   />
-  <div class="containe color">
-    <header class="row nav">
-      <div class="col-8">
-        <i><img src="../assets/idat2.png" alt="" class="logo" /></i>
+  <div class="container color">
+    <nav class="row nav">
+      <div class="col-6">
+        <img src="../assets/idatlogo.svg" alt="" class="logo mt-2 mx-3 mb-2" />
       </div>
-      <div class="col-12 col-sm-1 text-white letra pt-2">Wenas</div>
-      <div class="col-12 col-sm-1 text-white letra pt-2">asd</div>
-      <div class="col-12 col-sm-1 text-white letra pt-2">asd</div>
-      <div class="col-12 col-sm-1 text-white letra pt-2">asd</div>
-    </header>
+      <div class="col-1" style="color: white; margin-top: 15px">
+        <span class="letra">Home</span>
+      </div>
+      <div class="col-1" style="color: white; margin-top: 15px">
+        <span class="letra">Cursos</span>
+      </div>
+      <div class="col-1" style="color: white; margin-top: 15px">
+        <span class="letra">Diplomados</span>
+      </div>
+      <div
+        class="col-2"
+        style="color: white; margin-top: 15px; text-align: center"
+      >
+        <span class="letra">Escuela de coding</span>
+      </div>
+      <img
+        src="../assets/WhatsApp-Logotipo.png"
+        style="width: 80px; height: 35px; margin-top: 10px; margin-right: 20px"
+        class="col-2"
+      />
+    </nav>
 
     <section class="row">
-      <article class="position-relative inline-block">
-        <img :src="users.image" alt="" class="img" />
-        <div class="centrado letra">{{ users.nombre }}</div>
+      <article class="position-relative inline-block col-12 col-sm-12 pintura">
+        <img src="../assets/curso.png" alt="" class="IncoInfo" />
+        <div class="linea"></div>
+        <div class="centrado letra fw-bold">{{ users.nombre }}</div>
       </article>
     </section>
 
     <section class="row mt-5">
-      {{ $route.params.id }}
-      <article class="col-12 mx-5">
+      <article class="col-12 mx-5 cellLetras">
         <i class="fas fa-question-circle mx-4 fa-1x cell"
           ><span class="letra mx-2 fs-5"
             >¿En qué consiste el Diplomado en {{ users.nombre }}?</span
           ></i
         >
         <br />
-        <i class="fas fa-arrow-circle-right mx-5 mt-3"
+        <i class="fas fa-arrow-circle-right mx-5 mt-3 resumen_largo"
           ><span class="letra mt-3 mx-2"
             >El presente diplomado tiene un carácter teórico práctico</span
           ></i
         >
-        <p class="letra mx-5 mt-2 w-50">
+        <p class="letra mx-5 mt-2 w-50 resumen_largo">
           {{ users.resumen_largo }}
         </p>
-        <i class="fas fa-arrow-circle-right mx-5 mt-1"
+        <i class="fas fa-arrow-circle-right mx-5 mt-1 resumen_largo"
           ><span class="letra mx-2"
             >El diplomado tiene un enfoque expositivo-práctico.</span
           ></i
         >
-        <p class="letra mx-5 mt-2 w-50">
+        <p class="letra mx-5 mt-2 w-50 resumen_largo">
           {{ users.resumen_corto }}
         </p>
-        <img :src="users.image" alt="" style="height: 300px; width: 75%" />
+        <img
+          :src="users.image"
+          alt=""
+          style="height: 300px; width: 55%"
+          class="rounded border border-dark border-3"
+        />
       </article>
+      <img src="../assets/matri.png" alt="" class="matri col-6" />
     </section>
 
     <div class="row mx-5 mt-4">
@@ -99,7 +121,7 @@
       <i class="fas fa-medal"
         ><span class="letra mt-3 mx-2 fs-5">Idat otorga:</span></i
       >
-      <p class="letra w-50 mt-3">
+      <p class="letra w-50 mt-3 resumen_largo">
         Al finalizar satisfactoriamente el programa IDAT otorga diploma virtual
         por el Diplomado en Gestión Deportiva
       </p>
@@ -162,11 +184,26 @@ export default {
 .logo {
   width: 50px;
 }
-
-.color {
-  background-color: #e4f4fb;
+.matri {
+  position: absolute;
+  left: 62%;
+  height: 500px;
+  width: 450px;
+  z-index: 50;
 }
-
+.color {
+  background-color: #e5e5e5;
+}
+.linea {
+  border-bottom: 2px solid #fff;
+  margin-top: 166px;
+  height: 60px;
+}
+.IncoInfo {
+  position: absolute;
+  left: 66%;
+  top: 47%;
+}
 .centrado {
   position: absolute;
   top: 80%;
@@ -174,13 +211,22 @@ export default {
   color: white;
   font-size: 30px;
 }
+.logo {
+  width: 25px;
+}
 
 .nav {
   background-color: rgba(28, 28, 30, 0.7);
   position: fixed;
+  width: 1320px;
+  top: 0;
   z-index: 200;
-  margin-left: 1px;
+}
+
+.pintura {
+  background-color: #1f3a60;
   width: 100%;
+  height: 300px;
 }
 @media only screen and (min-width: 200px) and (max-width: 768px) {
   .cell {
@@ -207,6 +253,17 @@ export default {
     display: block;
     text-align: center;
     width: 100% !important;
+  }
+  .resumen_largo {
+    width: 320px !important;
+    margin-left: -45px !important;
+  }
+  .IncoInfo {
+    left: 50%;
+    top: 30%;
+  }
+  .matri {
+    display: none;
   }
   tbody td:before {
     content: attr(data-th);
