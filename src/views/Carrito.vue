@@ -2,7 +2,7 @@
    <div class="container">
       <nav>
          <div class="menu">
-            <img src="../assets/Pachaqtec-logo.jpg" alt="" class="menu-logo" />
+            <img src="../assets/pachaqtec.png" alt="" class="menu-logo" />
             <div class="menu-list">
                <ul :class="mostrar">
                   <li class="menu-item">
@@ -129,6 +129,7 @@ nav {
    color: white;
 }
 .menu-link {
+   font-size: 18px;
    color: white;
    font-weight: bold;
 }

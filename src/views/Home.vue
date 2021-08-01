@@ -3,7 +3,7 @@
       <div class="header">
          <nav>
             <div class="menu">
-               <img src="../assets/Pachaqtec-logo.jpg" alt="" class="menu-logo" />
+               <img src="../assets/pachaqtec.png" alt="" class="menu-logo" />
                <div class="menu-list">
                   <ul :class="mostrar">
                      <li class="menu-item">
@@ -46,12 +46,23 @@
    <div class="cursos-container">
       <h2>Conoce nuestros programas de Especialización</h2>
       <div class="grid">
-         <article v-for="(curso, index) in cursos" :key="index">
-            <img :src="curso.image" alt="" />
+         <article
+            v-for="(curso, index) in cursos"
+            :key="index"
+            :style="{ 'background-image': `url(${curso.image})` }"
+         >
             <div class="curso-text">
                <h3>{{ curso.nombre }}</h3>
-               <router-link :to="`/infocurso/${curso.id}`" class="btn">Ver más</router-link>
-               <button class="btn-carrito" @click="agregarId(curso.id)">Agregar</button>
+               <div class="enlace">
+                  <div class="agregar">
+                     <img src="../assets/carrito.png" alt="" />
+                     <a @click="agregarId(curso.id)" class="agregar">Agregar</a>
+                  </div>
+                  <div class="ver">
+                     <img src="../assets/mas.png" alt="" />
+                     <router-link :to="`/infocurso/${curso.id}`" class="ver">Ver más</router-link>
+                  </div>
+               </div>
             </div>
          </article>
       </div>
@@ -59,6 +70,7 @@
 
    <section class="comunidad">
       <div class="comunidad-content">
+         <img src="../assets/chinita.png" alt="" />
          <div class="comunidad-text">
             <h3>Sé parte de la comunidad</h3>
             <p>
@@ -77,37 +89,11 @@
    <section class="more">
       <div class="more-content">
          <h2>Beneficios</h2>
-         <article>
-            <i class="fas fa-user"></i>
+         <article v-for="(beneficio, index) in beneficios" :key="index">
+            <img :src="beneficio.icono" alt="" />
             <div class="more-text">
-               <h3>Aprende de Expertos</h3>
-               <p>
-                  Aprende directamente de expertos del mercado a través del análisis y solución de
-                  problemas de programación. Utilizando los frameworks y herramientas de mayor
-                  relevancia dentro del mundo del coding.
-               </p>
-            </div>
-         </article>
-         <article>
-            <i class="fas fa-desktop"></i>
-            <div class="more-text">
-               <h3>Clases Virtuales</h3>
-               <p>
-                  Aprovecha tu tiempo al máximo en nuestras clases virtuales y participa
-                  presencialmente de nuestras hackathones semanales para conocer y participar de la
-                  comunidad profesional que liderará la transformación tecnológica del Perú.
-               </p>
-            </div>
-         </article>
-         <article>
-            <i class="fas fa-briefcase"></i>
-            <div class="more-text">
-               <h3>Empleabilidad</h3>
-               <p>
-                  Al finalizar el programa y certificarte a nombre de IDAT, podrás acceder a ofertas
-                  laborales especialmente identificadas para la comunidad PachaQTec, a través de
-                  nuestra plataforma de empleabilidad IDAT JOB.
-               </p>
+               <h3>{{ beneficio.titulo }}</h3>
+               <p>{{ beneficio.detalle }}</p>
             </div>
          </article>
       </div>
@@ -126,6 +112,7 @@
          />
          <!-- <input class="control" type="text" placeholder="PROGRAMA" v-model="user.curso" /> -->
          <select class="control" name="programa" id="program" v-model="user.curso">
+            <option selected disabled>Elija el Programa</option>
             <option :value="curso.id" v-for="(curso, index) in cursos" :key="index">{{
                curso.nombre
             }}</option>
@@ -163,6 +150,7 @@ export default {
             curso: '',
          },
          aceptar: false,
+         beneficios: [],
       };
    },
 
@@ -213,10 +201,17 @@ export default {
             curso: '',
          };
       },
+
+      async getBeneficios() {
+         const response = await fetch('https://no-llores-mas.herokuapp.com/cursos/beneficios/');
+         const data = await response.json();
+         this.beneficios = data;
+      },
    },
 
    created() {
       this.getCursosAction();
+      this.getBeneficios();
    },
    name: 'Home',
 };
@@ -240,11 +235,11 @@ a {
 li {
    list-style: none;
 }
-header {
-   min-height: 100vh;
-}
+/* header {
+   max-height: 100vh;
+} */
 .header {
-   background-color: #5640ff;
+   background-image: url('../assets/banner.png');
 }
 /* seccion menu */
 .menu {
@@ -269,6 +264,7 @@ header {
    color: white;
 }
 .menu-link {
+   font-size: 18px;
    color: white;
    font-weight: bold;
 }
@@ -308,11 +304,13 @@ header {
 }
 
 /* seccion formulario */
+
 .formulario {
    margin-bottom: 40px;
 }
 .form-register {
    border: 1px solid black;
+   border-radius: 10px;
    max-width: 350px;
    margin-left: auto;
    margin-right: auto;
@@ -329,6 +327,7 @@ header {
    padding: 15px 10px;
    border-radius: 5px;
    margin-bottom: 16px;
+   border: 1px solid black;
 }
 .control-btn {
    width: 100%;
@@ -363,6 +362,7 @@ header {
 }
 
 /* seccion grupos */
+
 .grupos {
    max-width: 90%;
    margin-top: 30px;
@@ -415,46 +415,44 @@ header {
    justify-items: center;
 }
 .grid article {
+   background-size: cover;
    border-radius: 10px;
-   text-align: center;
-   min-width: 200px;
-   border: 1px solid black;
-   padding-bottom: 8px;
-}
-.grid article img {
    width: 100%;
-   height: 200px;
-   border-top-left-radius: 10px;
-   border-top-right-radius: 10px;
+   height: 300px;
+   display: flex;
+   align-items: flex-end;
 }
 .curso-text {
-   padding: 0 10px;
+   width: 100%;
+   padding: 25px 30px;
 }
 .curso-text h3 {
-   margin: 8px 0;
-}
-.btn {
-   padding: 10px;
-   background-color: #5640ff;
    color: white;
-   border: none;
-   border-radius: 5px;
-   margin-right: 20px;
+   margin-bottom: 15px;
+   font-size: 25px;
 }
-.btn:hover {
-   cursor: pointer;
-   opacity: 0.5;
-}
-.btn-carrito {
-   padding: 10px;
-   background-color: #ff1558;
+.curso-text a {
+   display: inline-block;
    color: white;
-   border: none;
-   border-radius: 5px;
-}
-.btn-carrito:hover {
+   font-size: 20px;
    cursor: pointer;
-   opacity: 0.5;
+   font-weight: bold;
+   margin-left: 5px;
+}
+.enlace {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.ver {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+.agregar {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
 }
 
 /* media query cursos */
@@ -471,40 +469,46 @@ header {
 
 /* seccion comunidad */
 .comunidad {
-   margin-top: 100px;
+   margin-top: 150px;
    background-color: #5640ff;
    margin-bottom: 40px;
+   position: relative;
 }
 .comunidad-content {
-   max-width: 90%;
-   margin-left: auto;
-   margin-right: auto;
+   width: 40%;
+   min-height: 250px;
+   margin-left: 300px;
    color: white;
    padding: 20px 0;
 }
+.comunidad-content img {
+   display: inline-block;
+   position: absolute;
+   top: -100px;
+   left: -70px;
+}
 .comunidad-text {
-   margin-left: 200px;
+   margin: 20px 0;
 }
 .comunidad-text h3 {
    padding: 20px 0;
+   font-size: 25px;
 }
-.comunidad-text p {
-   padding-bottom: 10px;
+.comunidad-text > p {
+   margin-bottom: 20px;
 }
-/* media query comunidad */
-@media screen and (max-width: 800px) {
-   .comunidad-text {
-      margin-left: 0;
-   }
-}
+
 /* seccion beneficios */
+.more {
+   margin-top: 120px;
+}
 .more-content {
    margin-left: auto;
    margin-right: auto;
    max-width: 90%;
    display: grid;
    grid-template-columns: 1fr;
-   justify-items: center;
+   justify-items: left;
    align-items: center;
    margin-bottom: 40px;
 }
@@ -513,16 +517,15 @@ header {
    display: flex;
    justify-content: center;
    align-items: center;
-   max-width: 700px;
-   border: 1px solid black;
+   max-width: 800px;
    border-radius: 10px;
    background-color: #f8f8fa;
-   padding: 15px 25px;
+   padding: 25px 40px;
    margin: 20px 0;
 }
-.more-content i {
-   font-size: 30px;
-   color: #5640ff;
+.more-content img {
+   width: 50px;
+   /* color: #5640ff; */
 }
 .more-text {
    padding-left: 20px;
@@ -557,5 +560,26 @@ footer {
    margin-right: 20px;
    display: inline-block;
    width: 80px;
+}
+
+/* media query comunidad */
+@media screen and (max-width: 650px) {
+   .comunidad-content {
+      min-height: 550px;
+   }
+   .comunidad-content img {
+      left: 20%;
+   }
+   .comunidad-text {
+      margin-top: 300px;
+   }
+   .comunidad-content {
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
+   }
+   .more {
+      margin-top: 50px;
+   }
 }
 </style>
