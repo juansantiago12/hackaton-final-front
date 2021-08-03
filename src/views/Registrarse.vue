@@ -20,7 +20,7 @@
          <div class="formulario">
             <div class="inicio-nav">
                <router-link to="/login">Iniciar Sesión</router-link>
-               <router-link to="/registrarse">Registrarse</router-link>
+               <a href="#">Registrarse</a>
             </div>
             <div class="inicio-more">
                <p>Puedes iniciar sesión con:</p>
@@ -31,8 +31,10 @@
                <p>También puedes iniciar sesión con tu correo</p>
             </div>
             <form>
-               <input type="text" placeholder="Correo electrónico" />
-               <input type="password" placeholder="Contraseña" />
+               <input type="text" placeholder="Nombres y apellidos" />
+               <input type="password" placeholder="Correo electrónico" />
+               <input type="text" placeholder="Contraseña" />
+               <input type="text" placeholder="Repita contraseña" />
                <input type="submit" value="Ingresar" class="btn" />
                <a href="#" class="password">Olvidaste tu contraseña?</a>
             </form>
