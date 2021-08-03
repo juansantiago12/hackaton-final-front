@@ -30,12 +30,16 @@
                </div>
                <p>También puedes iniciar sesión con tu correo</p>
             </div>
-            <form>
-               <input type="text" placeholder="Nombres y apellidos" />
-               <input type="password" placeholder="Correo electrónico" />
-               <input type="text" placeholder="Contraseña" />
-               <input type="text" placeholder="Repita contraseña" />
-               <input type="submit" value="Ingresar" class="btn" />
+            <form @submit.prevent="getRegistro">
+               <input type="text" placeholder="Nombres y apellidos" v-model="registro.name" />
+               <input type="email" placeholder="Correo electrónico" v-model="registro.email" />
+               <input type="password" placeholder="Contraseña" v-model="registro.password" />
+               <input type="password" placeholder="Repita contraseña" v-model="password2" />
+               <div class="check">
+                  <input type="checkbox" value="privacidad" id="privacidad" v-model="aceptar" />
+                  <label for="privacidad">Acepto las Políticas de privacidad.</label>
+               </div>
+               <input type="submit" value="Ingresar" class="btn" @click="postRegistro()" />
                <a href="#" class="password">Olvidaste tu contraseña?</a>
             </form>
          </div>
@@ -44,7 +48,56 @@
 </template>
 
 <script>
-export default {};
+export default {
+   data() {
+      return {
+         registro: {
+            email: '',
+            name: '',
+            password: '',
+         },
+         password2: '',
+         aceptar: false,
+      };
+   },
+
+   methods: {
+      getRegistro() {
+         if (
+            this.registro.username === '' ||
+            this.registro.email === '' ||
+            this.registro.password === '' ||
+            this.registro.password !== this.password2 ||
+            this.aceptar === false
+         ) {
+            alert('falta campos por llenar o contraseñas no coinciden');
+         } else {
+            // console.log(this.registro);
+            alert('registro exitoso');
+         }
+      },
+
+      async postRegistro() {
+         const request = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(this.registro),
+         };
+         const response = await fetch(
+            'https://no-llores-mas.herokuapp.com/auth/register/',
+            request
+         );
+         const data = await response.json();
+         console.log(data);
+         this.registro = {
+            email: '',
+            name: '',
+            password: '',
+         };
+         this.password2 = '';
+      },
+   },
+};
 </script>
 
 <style scoped>

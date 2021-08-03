@@ -38,6 +38,11 @@ const routes = [
       name: 'Registrarse',
       component: Registrarse,
    },
+   {
+      path: '/usuarios/:id',
+      name: 'Usuarios',
+      component: () => import(/* webpackChunkName: "about" */ '../views/Usuarios.vue'),
+   },
 ];
 
 const router = createRouter({

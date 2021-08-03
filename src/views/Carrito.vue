@@ -43,7 +43,7 @@
                      <p>{{ subtotal }}</p>
                   </div>
                   <input type="text" placeholder="Agregar un código de descuento" />
-                  <button>Continuar</button>
+                  <button @click="validarCarrito()">Continuar</button>
                </div>
             </div>
          </div>
@@ -75,6 +75,13 @@ export default {
       },
       eliminarId(id) {
          this.eliminarCursoAction(id);
+      },
+      validarCarrito() {
+         if (localStorage.getItem('id del token')) {
+            alert('puedes comprar');
+         } else {
+            this.$router.push('/registrarse');
+         }
       },
    },
 

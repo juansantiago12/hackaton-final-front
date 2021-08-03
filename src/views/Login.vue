@@ -30,10 +30,10 @@
                </div>
                <p>También puedes iniciar sesión con tu correo</p>
             </div>
-            <form>
-               <input type="text" placeholder="Correo electrónico" />
-               <input type="password" placeholder="Contraseña" />
-               <input type="submit" value="Ingresar" class="btn" />
+            <form @submit.prevent="getLogin">
+               <input type="text" placeholder="Correo electrónico" v-model="login.email" />
+               <input type="password" placeholder="Contraseña" v-model="login.password" />
+               <input type="submit" value="Ingresar" class="btn" @click="postLogin()" />
                <a href="#" class="password">Olvidaste tu contraseña?</a>
             </form>
          </div>
@@ -42,7 +42,52 @@
 </template>
 
 <script>
-export default {};
+import jwt_decode from 'jwt-decode';
+
+export default {
+   data() {
+      return {
+         login: {
+            email: '',
+            password: '',
+         },
+         token: '',
+         idToken: '',
+      };
+   },
+
+   methods: {
+      getLogin() {
+         if (this.login.email === '' || this.login.password === '') {
+            alert('falta campos por llenar');
+         } else {
+            console.log(this.login);
+            alert('login exitoso');
+         }
+      },
+
+      async postLogin() {
+         const request = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(this.login),
+         };
+         const response = await fetch('https://no-llores-mas.herokuapp.com/auth/login/', request);
+         const data = await response.json();
+         this.token = data.tokens.access;
+         let decoded = jwt_decode(this.token);
+         this.idToken = decoded.user_id;
+         console.log(this.idToken);
+         this.login = {
+            email: '',
+            password: '',
+         };
+         this.$router.push(`/usuarios/${this.idToken}`);
+
+         localStorage.setItem('id del token', this.idToken);
+      },
+   },
+};
 </script>
 
 <style scoped>
