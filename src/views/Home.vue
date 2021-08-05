@@ -21,7 +21,7 @@
                </div>
                <div class="menu-rigth">
                   <router-link to="/carrito"><img src="../assets/carrito.png" alt=""/></router-link>
-                  <a href=""><i class="fas fa-bars" @click.prevent="mostrarMenu"></i></a>
+                  <a href=""><img src="../assets/layer.png" alt=""/></a>
                </div>
             </div>
          </nav>
@@ -36,9 +36,10 @@
       </div>
       <section class="section-grupos">
          <div class="grupos">
-            <img src="../assets/Intercorp.svg" alt="" />
+            <!-- <img src="../assets/Intercorp.svg" alt="" />
             <img src="../assets/idat.png" alt="" />
-            <img src="../assets/zegel.png" alt="" />
+            <img src="../assets/zegel.png" alt="" /> -->
+            <img src="../assets/grupo.png" alt="" />
          </div>
       </section>
    </header>
@@ -101,7 +102,7 @@
 
    <section class="formulario">
       <form class="form-register" @submit.prevent="getInteresado">
-         <p>Postula y obtén un 10% de descuento ne el programa</p>
+         <p>Postula y obtén un 10% de descuento en el programa</p>
          <input class="control" type="text" placeholder="NOMBRE" v-model="user.nombre" />
          <input class="control" type="number" placeholder="CELULAR" v-model="user.celular" />
          <input
@@ -126,9 +127,10 @@
    </section>
    <footer>
       <div class="footer-content">
-         <img src="../assets/intercorp2.png" alt="" />
+         <!-- <img src="../assets/intercorp2.png" alt="" />
          <img src="../assets/idat2.png" alt="" />
-         <img src="../assets/zegel.png" alt="" />
+         <img src="../assets/zegel.png" alt="" /> -->
+         <img src="../assets/grupo2.png" alt="" />
       </div>
    </footer>
    <router-view />
@@ -275,8 +277,12 @@ header {
    border-bottom: 2px solid white;
    padding-bottom: 2px;
 }
+.menu-rigth {
+   display: flex;
+   align-items: center;
+}
 .menu-rigth a {
-   margin: 0 10px;
+   margin: 0 15px;
    color: white;
 }
 .menu-rigth a:hover {
@@ -315,22 +321,23 @@ header {
    margin-bottom: 40px;
 }
 .form-register {
-   border: 1px solid black;
+   /* border: 1px solid black; */
    border-radius: 10px;
    max-width: 350px;
    margin-left: auto;
    margin-right: auto;
    padding: 30px;
-   background-color: #f8f8fa;
+   /* background-color: #f8f8fa; */
 }
 .form-register p {
    margin-bottom: 16px;
-   font-weight: bold;
-   text-align: center;
+   font-weight: 500;
+   font-size: 16px;
+   text-align: left;
 }
 .control {
    width: 100%;
-   padding: 15px 10px;
+   padding: 13px 10px;
    border-radius: 5px;
    margin-bottom: 16px;
    border: 1px solid black;
@@ -348,23 +355,12 @@ header {
    opacity: 0.5;
 }
 .check {
-   margin-bottom: 16px;
+   margin-bottom: 15px;
 }
 .check label {
-   margin-left: 10px;
+   margin-left: 8px;
    font-weight: bold;
-}
-
-/* media query formulario */
-@media screen and (min-width: 850px) {
-   .form-register {
-      position: absolute;
-      top: 100px;
-      right: 10%;
-   }
-   .banner-text {
-      width: 50%;
-   }
+   font-size: 11px;
 }
 
 /* seccion grupos */
@@ -380,7 +376,7 @@ header {
    align-items: center;
 }
 .grupos img {
-   width: 100px;
+   width: 300px;
 }
 
 /* media query menu */
@@ -414,9 +410,10 @@ header {
    margin-right: auto;
 }
 .grid {
+   width: calc(100% - 400px);
    margin-top: 40px;
    display: grid;
-   grid-template-columns: repeat(3, 1fr);
+   grid-template-columns: repeat(2, 1fr);
    grid-gap: 30px;
    align-items: center;
    justify-items: center;
@@ -463,12 +460,8 @@ header {
 }
 
 /* media query cursos */
-@media screen and (max-width: 990px) {
-   .grid {
-      grid-template-columns: repeat(2, 1fr);
-   }
-}
-@media screen and (max-width: 650px) {
+
+@media screen and (max-width: 1090px) {
    .grid {
       grid-template-columns: 1fr;
    }
@@ -524,7 +517,7 @@ header {
    display: flex;
    justify-content: center;
    align-items: center;
-   max-width: 800px;
+   width: calc(100% - 400px);
    border-radius: 10px;
    background-color: #f8f8fa;
    padding: 25px 40px;
@@ -550,6 +543,11 @@ header {
       width: 90%;
    }
 }
+@media screen and (max-width: 850px) {
+   .more-content article {
+      width: 100%;
+   }
+}
 
 /* seccion footer */
 footer {
@@ -566,7 +564,8 @@ footer {
 .footer-content img {
    margin-right: 20px;
    display: inline-block;
-   width: 80px;
+   width: 300px;
+   padding: 20px 0;
 }
 
 /* media query comunidad */
@@ -597,6 +596,37 @@ footer {
    }
    .more {
       margin-top: 50px;
+   }
+}
+
+/* media query formulario */
+@media screen and (min-width: 850px) {
+   .formulario {
+      background-image: url('../assets/mobile.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      position: fixed;
+      top: 100px;
+      right: 5%;
+      margin-bottom: 0;
+      height: 600px;
+      display: flex;
+      align-items: center;
+   }
+   .form-register {
+      margin-bottom: 0;
+      padding: 0 5px;
+      width: 65%;
+   }
+   .banner-text {
+      width: calc(100% - 400px);
+   }
+}
+
+@media screen and (max-width: 850px) {
+   .grid {
+      grid-template-columns: 1fr;
+      width: 100%;
    }
 }
 </style>

@@ -2,23 +2,24 @@
    <div class="container">
       <nav>
          <div class="menu">
-            <img src="../assets/pachaqtec.png" alt="" class="menu-logo" />
+            <router-link to="/" class="menu-link">
+               <img src="../assets/pachaqtec.png" alt="" class="menu-logo" />
+            </router-link>
+
             <div class="menu-list">
                <ul :class="mostrar">
-                  <li class="menu-item">
-                     <router-link to="/" class="menu-link">Home</router-link>
-                  </li>
+                  <!-- <li class="menu-item"></li>
                   <li class="menu-item">
                      <router-link to="/about" class="menu-link">About</router-link>
                   </li>
                   <li class="menu-item"><a href="#" class="menu-link">Contacts</a></li>
                   <li class="menu-item"><a href="#" class="menu-link">Services</a></li>
-                  <li class="menu-item"><a href="#" class="menu-link">More</a></li>
+                  <li class="menu-item"><a href="#" class="menu-link">More</a></li> -->
                </ul>
             </div>
             <div class="menu-rigth">
-               <router-link to="/carrito"><i class="fas fa-shopping-cart"></i></router-link>
-               <a href=""><i class="fas fa-bars" @click.prevent="mostrarMenu"></i></a>
+               <router-link to="/carrito"><img src="../assets/carrito.png" alt=""/></router-link>
+               <a href=""><img src="../assets/layer.png" alt=""/></a>
             </div>
          </div>
       </nav>
@@ -31,9 +32,12 @@
                   <div class="curso-text">
                      <h3>{{ curso.nombre }}</h3>
                      <p>Descuento 25%</p>
-                     <button @click="eliminarId(curso.id)">Eliminar</button>
-                     <p class="precio">S/ {{ curso.precio }}</p>
+                     <div class="curso-text-more">
+                        <a @click="eliminarId(curso.id)">Eliminar</a>
+                        <p>S/ {{ curso.precio }}</p>
+                     </div>
                   </div>
+                  <p class="curso-precio">S/ {{ curso.precio }}</p>
                </article>
             </div>
             <div class="subtotal">
@@ -150,6 +154,7 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
 
 /* estilos generales */
 * {
@@ -240,52 +245,61 @@ nav {
    margin-left: auto;
    margin-right: auto;
    display: grid;
-   grid-template-columns: 50% 1fr;
+   grid-template-columns: 60% 1fr;
 }
 .cursos h2 {
    margin-bottom: 30px;
+   font-family: 'Poppins', sans-serif;
+   font-size: 20px;
+   font-weight: bold;
 }
 .cursos article {
-   display: flex;
-   justify-content: right;
-   align-items: center;
-   margin: 20px 0;
+   display: grid;
+   grid-template-columns: 30% 1fr 20%;
+   margin-bottom: 20px;
 }
 .curso-img {
    display: block;
-   max-width: 150px;
+   width: 100%;
+   max-height: 120px;
    border-radius: 5px;
 }
 .curso-text {
    margin-left: 20px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   padding: 8px 0;
 }
 .curso-text h3 {
-   font-size: 0.9rem;
+   font-family: 'Roboto', sans-serif;
+   font-size: 16px;
    font-weight: bold;
-   margin-bottom: 5px;
 }
 .curso-text p {
+   font-family: 'Roboto', sans-serif;
    color: #5640ff;
-   font-size: 0.9rem;
-   font-weight: bold;
-   margin-bottom: 5px;
-}
-.curso-text button {
-   background-color: #ff1558;
-   color: white;
-   border: none;
-   padding: 5px;
-   border-radius: 3px;
+   font-size: 14px;
    font-weight: bold;
 }
-.curso-text button:hover {
-   cursor: pointer;
-   opacity: 0.5;
+.curso-text-more {
+   display: flex;
 }
-.precio {
-   padding-left: 70%;
-   font-size: 0.9rem;
+.curso-text-more a {
+   font-family: 'Poppins', sans-serif;
+   font-size: 14px;
+   color: #5640ff;
+   border-bottom: 2px solid #5640ff;
    font-weight: bold;
+}
+.curso-text-more p {
+   display: none;
+}
+.curso-precio {
+   font-family: 'Poppins', sans-serif;
+   font-size: 16px;
+   font-weight: bold;
+   text-align: center;
 }
 
 /* subtotal  */
