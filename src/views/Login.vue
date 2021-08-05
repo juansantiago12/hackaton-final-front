@@ -61,7 +61,7 @@ export default {
          if (this.login.email === '' || this.login.password === '') {
             alert('falta campos por llenar');
          } else {
-            console.log(this.login);
+            // console.log(this.login);
             alert('login exitoso');
          }
       },

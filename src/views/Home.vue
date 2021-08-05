@@ -6,7 +6,7 @@
                <img src="../assets/pachaqtec.png" alt="" class="menu-logo" />
                <div class="menu-list">
                   <ul :class="mostrar">
-                     <li class="menu-item">
+                     <!-- <li class="menu-item">
                         <router-link to="/" class="menu-link">Home</router-link>
                      </li>
                      <li class="menu-item">
@@ -16,11 +16,11 @@
                      <li class="menu-item"><a href="#" class="menu-link">Services</a></li>
                      <li class="menu-item">
                         <router-link to="/login" class="menu-link">Login</router-link>
-                     </li>
+                     </li> -->
                   </ul>
                </div>
                <div class="menu-rigth">
-                  <router-link to="/carrito"><i class="fas fa-shopping-cart"></i></router-link>
+                  <router-link to="/carrito"><img src="../assets/carrito.png" alt=""/></router-link>
                   <a href=""><i class="fas fa-bars" @click.prevent="mostrarMenu"></i></a>
                </div>
             </div>
@@ -161,13 +161,14 @@ export default {
    methods: {
       ...mapActions(['getCursosAction']),
       ...mapActions(['addCursoAction']),
-      mostrarMenu() {
-         if (this.mostrar == 'show') {
-            this.mostrar = '';
-         } else {
-            this.mostrar = 'show';
-         }
-      },
+      // mostrarMenu() {
+      //    if (this.mostrar == 'show') {
+      //       this.mostrar = '';
+      //    } else {
+      //       this.mostrar = 'show';
+      //    }
+      // },
+
       agregarId(id) {
          this.addCursoAction(id);
       },
@@ -218,17 +219,16 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600&display=swap');
 
 /* estilos generales */
 * {
    box-sizing: border-box;
    margin: 0;
    padding: 0;
+   font-family: 'Poppins', sans-serif;
 }
-body {
-   font-family: 'Roboto', sans-serif;
-}
+
 a {
    text-decoration: none;
 }
@@ -242,7 +242,7 @@ header {
    background-image: url('../assets/banner.png');
    background-repeat: no-repeat;
    background-size: cover;
-   min-height: 70%;
+   height: 70%;
 }
 /* seccion menu */
 .menu {
@@ -283,26 +283,30 @@ header {
    font-size: 20px;
 }
 /* seccion banner */
-/* .section-banner {
-   
-} */
+.section-banner {
+   height: calc(100% - 70px);
+}
 .banner {
    max-width: 90%;
    height: 100%;
    margin-right: auto;
    margin-left: auto;
-   margin-top: 40px;
+   display: flex;
+   align-items: center;
 }
 .banner-text {
    color: white;
    width: 100%;
 }
 .banner h1 {
-   font-size: 50px;
+   font-size: 54px;
+   font-weight: bold;
+   letter-spacing: 2px;
 }
 .banner p {
    margin-top: 40px;
-   font-size: 25px;
+   font-size: 22px;
+   font-weight: 500;
 }
 
 /* seccion formulario */

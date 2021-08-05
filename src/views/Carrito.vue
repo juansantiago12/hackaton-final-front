@@ -58,6 +58,14 @@ export default {
    data() {
       return {
          mostrar: '',
+         id: '',
+         orden: {
+            user: '',
+            cursos: [],
+            codigo: '',
+            cupon: '',
+            total: '',
+         },
       };
    },
    computed: {
@@ -78,11 +86,14 @@ export default {
       },
       validarCarrito() {
          if (localStorage.getItem('id del token')) {
-            alert('puedes comprar');
+            this.id = localStorage.getItem('id del token');
+            this.$router.push(`/pagos/${this.id}`);
          } else {
             this.$router.push('/registrarse');
          }
       },
+
+      postOrden() {},
    },
 
    name: 'Carrito',

@@ -64,7 +64,7 @@ export default {
    methods: {
       getRegistro() {
          if (
-            this.registro.username === '' ||
+            this.registro.name === '' ||
             this.registro.email === '' ||
             this.registro.password === '' ||
             this.registro.password !== this.password2 ||
