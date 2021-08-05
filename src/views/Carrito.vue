@@ -42,7 +42,11 @@
                      <p>Subtotal</p>
                      <p>{{ subtotal }}</p>
                   </div>
-                  <input type="text" placeholder="Agregar un código de descuento" />
+                  <input
+                     type="text"
+                     placeholder="Agregar un código de descuento"
+                     v-model="cuponIngresado"
+                  />
                   <button @click="validarCarrito()">Continuar</button>
                </div>
             </div>
@@ -62,10 +66,12 @@ export default {
          orden: {
             user: '',
             cursos: [],
-            codigo: '',
-            cupon: '',
-            total: '',
+            codigo: '123abc',
+            cupon: '1',
+            total: '100',
          },
+         cuponIngresado: '',
+         arregloCupon: [],
       };
    },
    computed: {
@@ -87,13 +93,55 @@ export default {
       validarCarrito() {
          if (localStorage.getItem('id del token')) {
             this.id = localStorage.getItem('id del token');
-            this.$router.push(`/pagos/${this.id}`);
+
+            const cursoRecorrido = this.cursoAgregado.map((element) => {
+               return element.id;
+            });
+
+            const validarCupon = this.arregloCupon.find((element) => {
+               return element.nombre === this.cuponIngresado.toLowerCase();
+            });
+
+            if (validarCupon === undefined) {
+               alert('cupon no existe');
+               this.orden.user = this.id;
+               this.orden.cursos = cursoRecorrido;
+               this.orden.cupon = '';
+               this.postCupon();
+               console.log(this.orden);
+               // this.$router.push(`/pagos/${this.id}`);
+            } else {
+               this.orden.user = this.id;
+               this.orden.cursos = cursoRecorrido;
+               this.orden.cupon = validarCupon.id;
+               this.postCupon();
+               console.log(this.orden);
+               // this.$router.push(`/pagos/${this.id}`);
+            }
          } else {
             this.$router.push('/registrarse');
          }
       },
 
-      postOrden() {},
+      async getCupon() {
+         const response = await fetch('https://no-llores-mas.herokuapp.com/orders/cupones');
+         const data = await response.json();
+         this.arregloCupon = data;
+      },
+
+      async postCupon() {
+         const request = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(this.orden),
+         };
+         const response = await fetch('https://no-llores-mas.herokuapp.com/orders/orders', request);
+         const data = await response.json();
+      },
+   },
+
+   created() {
+      this.getCupon();
    },
 
    name: 'Carrito',

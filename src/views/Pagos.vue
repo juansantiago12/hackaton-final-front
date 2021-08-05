@@ -1,17 +1,9 @@
 <template>
-   <h2>{{ $route.params.id }}</h2>
-   <div v-for="(curso, index) in cursoAgregado" :key="index">
-      <p>{{ curso.nombre }}</p>
-   </div>
+   <h1>Hola soy vista de pagos</h1>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-export default {
-   computed: {
-      ...mapState(['cursoAgregado']),
-   },
-};
+export default {};
 </script>
 
 <style></style>
