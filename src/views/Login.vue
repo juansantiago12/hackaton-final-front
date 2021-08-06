@@ -3,31 +3,28 @@
       <div class="login-content">
          <div class="banner">
             <nav>
-               <img class="banner-img" src="../assets/pachaqtec.png" alt="" />
+               <router-link to="/">
+                  <img class="banner-img" src="../assets/pachaqtec.png" alt="" />
+               </router-link>
             </nav>
             <div class="banner-text">
-               <h2>Explota tu potencial tecnológico</h2>
+               <h2>Explota tu potencial tecnológico!</h2>
                <p>Con nuestros programas de especialización</p>
             </div>
             <footer>
-               <img class="footer-img" src="../assets/intercorp2.png" alt="" />
-               <img class="footer-img" src="../assets/idat2.png" alt="" />
-               <img class="footer-img" src="../assets/zegel.png" alt="" />
+               <img class="footer-img" src="../assets/grupo2.png" alt="" />
             </footer>
          </div>
       </div>
+
       <div class="inicio">
+         <div class="inicio-nav">
+            <router-link to="/login">Iniciar Sesión</router-link>
+            <router-link to="/registrarse">Registrarse</router-link>
+         </div>
          <div class="formulario">
-            <div class="inicio-nav">
-               <router-link to="/login">Iniciar Sesión</router-link>
-               <router-link to="/registrarse">Registrarse</router-link>
-            </div>
             <div class="inicio-more">
                <p>Puedes iniciar sesión con:</p>
-               <div class="inicio-img">
-                  <img class="facebook" src="../assets/facebook.png" alt="" />
-                  <img class="gogle" src="../assets/gogle.png" alt="" />
-               </div>
                <p>También puedes iniciar sesión con tu correo</p>
             </div>
             <form @submit.prevent="getLogin">
@@ -39,6 +36,7 @@
          </div>
       </div>
    </section>
+   <router-view />
 </template>
 
 <script>
@@ -92,7 +90,7 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600&display=swap');
 * {
    box-sizing: border-box;
    margin: 0;
@@ -105,9 +103,9 @@ a {
    text-decoration: none;
 }
 .login {
-   min-height: 100vh;
+   height: 100vh;
    display: grid;
-   grid-template-columns: 60% 1fr;
+   grid-template-columns: 65% 1fr;
 }
 .login-content {
    background-image: url('../assets/banner.png');
@@ -132,14 +130,22 @@ a {
    justify-content: center;
    align-items: flex-end;
 }
+.banner-text {
+   text-align: left;
+}
 .banner-text h2 {
    font-size: 30px;
    color: white;
+   font-family: 'Poppins', sans-serif;
+   font-weight: bold;
+   letter-spacing: 2px;
 }
 .banner-text p {
    margin-top: 16px;
-   font-size: 20px;
+   font-size: 16px;
    color: white;
+   font-family: 'Poppins', sans-serif;
+   font-weight: 500;
 }
 
 footer {
@@ -148,14 +154,20 @@ footer {
    align-items: center;
 }
 .footer-img {
-   display: inline-block;
-   width: 80px;
+   width: 300px;
+   margin-bottom: 50px;
+   display: block;
 }
 .formulario {
    padding: 16px 40px;
    display: grid;
    grid-template-rows: 50px 160px 1fr;
 }
+
+/* .inicio {
+   display: flex;
+   align-items: center;
+} */
 .inicio-more p {
    text-align: center;
    margin-top: 20px;
@@ -166,27 +178,23 @@ footer {
    justify-content: center;
    align-items: center;
 }
-.facebook {
-   display: inline-block;
-   width: 50px;
-}
-.gogle {
-   display: inline-block;
-   width: 40px;
-   margin-left: 10px;
-}
+
 .inicio-nav {
    display: flex;
    justify-content: space-around;
    align-items: center;
+   height: 80px;
 }
 .inicio-nav a {
    color: black;
    display: inline-block;
-   font-weight: bold;
+   font-family: 'Poppins', sans-serif;
+   font-weight: 900;
+   font-size: 14px;
+   padding-bottom: 8px;
 }
 .inicio-nav a:hover {
-   border-bottom: 3px solid black;
+   border-bottom: 4px solid black;
 }
 .inicio input {
    width: 100%;

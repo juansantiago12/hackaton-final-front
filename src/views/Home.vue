@@ -3,7 +3,9 @@
       <div class="header">
          <nav>
             <div class="menu">
-               <img src="../assets/pachaqtec.png" alt="" class="menu-logo" />
+               <router-link to="/" class="menu-link">
+                  <img src="../assets/pachaqtec.png" alt="" class="menu-logo" />
+               </router-link>
                <div class="menu-list">
                   <ul :class="mostrar">
                      <!-- <li class="menu-item">
@@ -273,10 +275,7 @@ header {
    color: white;
    font-weight: bold;
 }
-.menu-link:hover {
-   border-bottom: 2px solid white;
-   padding-bottom: 2px;
-}
+
 .menu-rigth {
    display: flex;
    align-items: center;

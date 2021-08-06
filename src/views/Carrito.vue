@@ -44,7 +44,7 @@
                <div class="form">
                   <div>
                      <p>Subtotal</p>
-                     <p>{{ subtotal }}</p>
+                     <p>S/ {{ subtotal }}</p>
                   </div>
                   <input
                      type="text"
@@ -204,10 +204,6 @@ nav {
    color: white;
    font-weight: bold;
 }
-.menu-link:hover {
-   border-bottom: 2px solid white;
-   padding-bottom: 2px;
-}
 .menu-rigth a {
    margin: 0 10px;
    color: white;
@@ -238,7 +234,7 @@ nav {
 
 /* seccion cursos comprados */
 .carrito {
-   margin-top: 30px;
+   background-color: #f8f8fa;
 }
 .carrito-content {
    max-width: 90%;
@@ -248,7 +244,7 @@ nav {
    grid-template-columns: 60% 1fr;
 }
 .cursos h2 {
-   margin-bottom: 30px;
+   margin: 30px 0;
    font-family: 'Poppins', sans-serif;
    font-size: 20px;
    font-weight: bold;
@@ -291,6 +287,7 @@ nav {
    color: #5640ff;
    border-bottom: 2px solid #5640ff;
    font-weight: bold;
+   cursor: pointer;
 }
 .curso-text-more p {
    display: none;
@@ -303,16 +300,20 @@ nav {
 }
 
 /* subtotal  */
+.subtotal {
+   display: flex;
+   align-items: center;
+}
 .form {
-   margin-top: 100px;
-   max-width: 400px;
+   width: 90%;
    margin-right: auto;
    margin-left: auto;
-   padding: 30px;
+   padding: 50px;
    border-radius: 5px;
-   background-color: #f8f8fa;
+   background-color: white;
 }
 .form div {
+   font-family: 'Poppins', sans-serif;
    display: flex;
    justify-content: space-between;
    align-items: center;
@@ -323,14 +324,14 @@ nav {
 }
 .form input {
    width: 100%;
-   padding: 10px;
+   padding: 16px;
    margin-bottom: 30px;
-   border: 1px solid black;
+   border: 1px solid rgb(105, 103, 103);
    border-radius: 5px;
 }
 .form button {
    width: 100%;
-   padding: 10px;
+   padding: 16px;
    background-color: #5640ff;
    color: white;
    font-weight: bold;
@@ -351,8 +352,31 @@ nav {
       justify-items: center;
       align-items: center;
    }
+   .subtotal {
+      width: 90%;
+   }
    .form {
       margin-top: 30px;
+   }
+}
+
+@media screen and (max-width: 900px) {
+   .curso-precio {
+      display: none;
+   }
+   .cursos article {
+      grid-template-columns: 40% 60%;
+   }
+   .curso-text-more p {
+      display: block;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      color: black;
+      margin-left: 50px;
+   }
+   .form {
+      padding: 20px 10px;
    }
 }
 </style>
