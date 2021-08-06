@@ -78,6 +78,8 @@ export default {
       },
       cuponIngresado: "",
       arregloCupon: [],
+      orderPasar: {},
+      self: this,
     };
   },
   computed: {
@@ -148,6 +150,8 @@ export default {
         request
       );
       const data = await response.json();
+      this.self.$store.state.order = data;
+      console.log(this.self.$store.state);
     },
   },
 
