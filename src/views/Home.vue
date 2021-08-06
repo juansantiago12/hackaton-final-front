@@ -30,7 +30,7 @@
          <section class="section-banner">
             <div class="banner">
                <div class="banner-text">
-                  <h1>Explota todo tu potencial tecnológico!</h1>
+                  <h1>¡Explota todo tu potencial tecnológico!</h1>
                   <p>Con nuestros programas de especialización</p>
                </div>
             </div>
@@ -92,7 +92,7 @@
    <section class="more">
       <div class="more-content">
          <h2>Beneficios</h2>
-         <article v-for="(beneficio, index) in beneficios" :key="index">
+         <article v-for="(beneficio, index) in beneficios.slice().reverse()" :key="index">
             <img :src="beneficio.icono" alt="" />
             <div class="more-text">
                <h3>{{ beneficio.titulo }}</h3>
@@ -116,9 +116,9 @@
          <!-- <input class="control" type="text" placeholder="PROGRAMA" v-model="user.curso" /> -->
          <select class="control" name="programa" id="program" v-model="user.curso">
             <option selected disabled>Elija el Programa</option>
-            <option :value="curso.id" v-for="(curso, index) in cursos" :key="index">{{
-               curso.nombre
-            }}</option>
+            <option :value="curso.id" v-for="(curso, index) in cursos" :key="index">
+               {{ curso.nombre }}
+            </option>
          </select>
          <div class="check">
             <input type="checkbox" value="privacidad" id="privacidad" v-model="aceptar" />
@@ -224,6 +224,7 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
 
 /* estilos generales */
 * {
@@ -431,7 +432,7 @@ header {
 .curso-text h3 {
    color: white;
    margin-bottom: 15px;
-   font-size: 25px;
+   font-size: 22px;
 }
 .curso-text a {
    display: inline-block;
@@ -491,9 +492,11 @@ header {
 .comunidad-text h3 {
    padding: 20px 0;
    font-size: 25px;
+   font-family: 'Poppins', sans-serif;
 }
 .comunidad-text > p {
    margin-bottom: 20px;
+   font-family: 'Roboto', sans-serif;
 }
 
 /* seccion beneficios */
@@ -530,6 +533,10 @@ header {
 }
 .more-text h3 {
    margin-bottom: 10px;
+   font-family: 'Roboto', sans-serif;
+}
+.more-text p {
+   font-family: 'Roboto', sans-serif;
 }
 
 /* query beneficios */

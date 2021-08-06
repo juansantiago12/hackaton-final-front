@@ -8,7 +8,13 @@
    <div class="container color">
       <nav class="row nav">
          <div class="col-6">
-            <img src="../assets/idatlogo.svg" alt="" class="logo mt-2 mx-3 mb-2" />
+            <router-link to="/"
+               ><img
+                  src="../assets/pachaqtec.png"
+                  alt=""
+                  class="logo mt-2 mx-3 mb-2"
+                  style="width: 200px"
+            /></router-link>
          </div>
          <div class="col-1" style="color: white; margin-top: 15px">
             <span class="letra">Home</span>
@@ -122,7 +128,9 @@
          </div>
       </footer>
    </div>
+   <router-view />
 </template>
+
 <script>
 export default {
    data() {
