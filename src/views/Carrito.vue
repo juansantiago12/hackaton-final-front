@@ -76,6 +76,7 @@ export default {
          },
          cuponIngresado: '',
          arregloCupon: [],
+         self: this,
       };
    },
    computed: {
@@ -112,15 +113,13 @@ export default {
                this.orden.cursos = cursoRecorrido;
                this.orden.cupon = '';
                this.postCupon();
-               console.log(this.orden);
-               // this.$router.push(`/pagos/${this.id}`);
+               this.$router.push(`/pagos/${this.id}`);
             } else {
                this.orden.user = this.id;
                this.orden.cursos = cursoRecorrido;
                this.orden.cupon = validarCupon.id;
                this.postCupon();
-               console.log(this.orden);
-               // this.$router.push(`/pagos/${this.id}`);
+               this.$router.push(`/pagos/${this.id}`);
             }
          } else {
             this.$router.push('/registrarse');
@@ -141,6 +140,7 @@ export default {
          };
          const response = await fetch('https://no-llores-mas.herokuapp.com/orders/orders', request);
          const data = await response.json();
+         this.self.$store.state.order.push(data);
       },
    },
 

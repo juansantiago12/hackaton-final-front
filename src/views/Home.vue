@@ -321,7 +321,6 @@ header {
    margin-bottom: 40px;
 }
 .form-register {
-   /* border: 1px solid black; */
    border-radius: 10px;
    max-width: 350px;
    margin-left: auto;
@@ -614,9 +613,9 @@ footer {
       align-items: center;
    }
    .form-register {
-      margin-bottom: 0;
       padding: 0 5px;
       width: 65%;
+      border: none;
    }
    .banner-text {
       width: calc(100% - 400px);
