@@ -3,48 +3,44 @@
       <div class="login-content">
          <div class="banner">
             <nav>
-               <img class="banner-img" src="../assets/pachaqtec.png" alt="" />
+               <router-link to="/">
+                  <img class="banner-img" src="../assets/pachaqtec.png" alt="" />
+               </router-link>
             </nav>
             <div class="banner-text">
-               <h2>Explota tu potencial tecnológico</h2>
+               <h2>Explota tu potencial tecnológico!</h2>
                <p>Con nuestros programas de especialización</p>
             </div>
             <footer>
-               <img class="footer-img" src="../assets/intercorp2.png" alt="" />
-               <img class="footer-img" src="../assets/idat2.png" alt="" />
-               <img class="footer-img" src="../assets/zegel.png" alt="" />
+               <img class="footer-img" src="../assets/grupo2.png" alt="" />
             </footer>
          </div>
       </div>
+
       <div class="inicio">
-         <div class="formulario">
-            <div class="inicio-nav">
-               <router-link to="/login">Iniciar Sesión</router-link>
-               <a href="#">Registrarse</a>
-            </div>
-            <div class="inicio-more">
-               <p>Puedes iniciar sesión con:</p>
-               <div class="inicio-img">
-                  <img class="facebook" src="../assets/facebook.png" alt="" />
-                  <img class="gogle" src="../assets/gogle.png" alt="" />
-               </div>
-               <p>También puedes iniciar sesión con tu correo</p>
-            </div>
-            <form @submit.prevent="getRegistro">
+         <div class="inicio-nav">
+            <router-link to="/login">Iniciar Sesión</router-link>
+            <router-link to="/registrarse">Registrarse</router-link>
+         </div>
+         <form @submit.prevent="getRegistro" class="formulario">
+            <div class="form-1">
+               <p>Puedes registrarte con tu correo</p>
                <input type="text" placeholder="Nombres y apellidos" v-model="registro.name" />
                <input type="email" placeholder="Correo electrónico" v-model="registro.email" />
                <input type="password" placeholder="Contraseña" v-model="registro.password" />
-               <input type="password" placeholder="Repita contraseña" v-model="password2" />
+               <input type="password" placeholder="Repite contraseña" v-model="password2" />
                <div class="check">
                   <input type="checkbox" value="privacidad" id="privacidad" v-model="aceptar" />
                   <label for="privacidad">Acepto las Políticas de privacidad.</label>
                </div>
+            </div>
+            <div class="form-2">
                <input type="submit" value="Ingresar" class="btn" @click="postRegistro()" />
-               <a href="#" class="password">Olvidaste tu contraseña?</a>
-            </form>
-         </div>
+            </div>
+         </form>
       </div>
    </section>
+   <router-view />
 </template>
 
 <script>
@@ -102,7 +98,7 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600&display=swap');
 * {
    box-sizing: border-box;
    margin: 0;
@@ -115,9 +111,9 @@ a {
    text-decoration: none;
 }
 .login {
-   min-height: 100vh;
+   height: 100vh;
    display: grid;
-   grid-template-columns: 60% 1fr;
+   grid-template-columns: 65% 1fr;
 }
 .login-content {
    background-image: url('../assets/banner.png');
@@ -142,14 +138,22 @@ a {
    justify-content: center;
    align-items: flex-end;
 }
+.banner-text {
+   text-align: left;
+}
 .banner-text h2 {
    font-size: 30px;
    color: white;
+   font-family: 'Poppins', sans-serif;
+   font-weight: bold;
+   letter-spacing: 2px;
 }
 .banner-text p {
    margin-top: 16px;
-   font-size: 20px;
+   font-size: 16px;
    color: white;
+   font-family: 'Poppins', sans-serif;
+   font-weight: 500;
 }
 
 footer {
@@ -158,62 +162,98 @@ footer {
    align-items: center;
 }
 .footer-img {
-   display: inline-block;
-   width: 80px;
+   width: 300px;
+   margin-bottom: 50px;
+   display: block;
 }
-.formulario {
-   padding: 16px 40px;
-   display: grid;
-   grid-template-rows: 50px 160px 1fr;
-}
-.inicio-more p {
-   text-align: center;
-   margin-top: 20px;
-}
-.inicio-img {
-   margin-top: 20px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-.facebook {
-   display: inline-block;
-   width: 50px;
-}
-.gogle {
-   display: inline-block;
-   width: 40px;
-   margin-left: 10px;
+.inicio {
+   margin-left: auto;
+   margin-right: auto;
+   width: 85%;
 }
 .inicio-nav {
    display: flex;
    justify-content: space-around;
    align-items: center;
+   height: 80px;
 }
 .inicio-nav a {
    color: black;
    display: inline-block;
+   font-family: 'Poppins', sans-serif;
    font-weight: bold;
+   font-size: 14px;
+   padding-bottom: 8px;
 }
 .inicio-nav a:hover {
-   border-bottom: 3px solid black;
+   border-bottom: 4px solid black;
 }
-.inicio input {
+
+.formulario {
+   height: calc(100% - 80px);
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+}
+.form-1 p {
+   text-align: center;
+   font-family: 'Poppins', sans-serif;
+   font-size: 13px;
+   font-weight: 300;
+   margin-bottom: 30px;
+}
+.formulario input {
+   display: inline-block;
    width: 100%;
-   padding: 15px 10px;
-   margin-bottom: 16px;
+   padding: 16px 20px;
    border-radius: 5px;
    border: 1px solid black;
+   margin-bottom: 20px;
 }
-.inicio .btn {
-   margin-top: 100px;
+::placeholder {
+   opacity: 0.7;
+}
+.form-2 input {
+   font-family: 'Poppins', sans-serif;
    background-color: #5640ff;
    color: white;
+   font-size: 16px;
    font-weight: bold;
 }
-.password {
+.form-2 a {
    color: #5640ff;
-   border-bottom: 1px solid #5640ff;
+   display: block;
+   text-align: center;
+   font-family: 'Poppins', sans-serif;
+   font-size: 14px;
    font-weight: bold;
+}
+
+.check {
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+}
+.check input {
+   width: 10%;
+   margin: 0;
+}
+.check label {
+   display: inline;
+   font-family: 'Poppins', sans-serif;
+   font-size: 14px;
+   font-weight: bold;
+}
+
+@media screen and (max-width: 970px) {
+   .login {
+      grid-template-columns: 1fr;
+   }
+   .login-content {
+      display: none;
+   }
+   .inicio {
+      max-width: 500px;
+   }
 }
 </style>

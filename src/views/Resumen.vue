@@ -7,7 +7,7 @@
             </router-link>
 
             <div class="menu-list">
-               <ul :class="mostrar">
+               <ul class="mostrar">
                   <!-- <li class="menu-item"></li>
                   <li class="menu-item">
                      <router-link to="/about" class="menu-link">About</router-link>
@@ -19,39 +19,30 @@
             </div>
             <div class="menu-rigth">
                <router-link to="/carrito"><img src="../assets/carrito.png" alt=""/></router-link>
-               <a to="/carrito"><img src="../assets/layer.png" alt=""/></a>
+               <a to="/resumen"><img src="../assets/layer.png" alt=""/></a>
             </div>
          </div>
       </nav>
       <section class="carrito">
          <div class="carrito-content">
             <div class="cursos">
-               <h2>Carrito de compras</h2>
-               <article v-for="(curso, index) in cursoAgregado" :key="index">
-                  <img class="curso-img" :src="curso.image" alt="" />
+               <h2>Resumen de compra</h2>
+               <article>
+                  <img class="curso-img" src="../assets/curso.jpg" alt="" />
                   <div class="curso-text">
-                     <h3>{{ curso.nombre }}</h3>
+                     <h3>Cualquier curso</h3>
                      <p>Descuento 25%</p>
-                     <div class="curso-text-more">
-                        <a @click="eliminarId(curso.id)">Eliminar</a>
-                        <p>S/ {{ curso.precio }}</p>
-                     </div>
                   </div>
-                  <p class="curso-precio">S/ {{ curso.precio }}</p>
+                  <p class="curso-precio">S/ 100</p>
                </article>
             </div>
             <div class="subtotal">
                <div class="form">
-                  <div>
-                     <p>Subtotal</p>
-                     <p>S/ {{ subtotal }}</p>
-                  </div>
-                  <input
-                     type="text"
-                     placeholder="Agregar un código de descuento"
-                     v-model="cuponIngresado"
-                  />
-                  <button @click="validarCarrito()">Continuar</button>
+                  <p class="fin">¡Compra exitosa!</p>
+                  <p class="boleta">
+                     La boleta o factura solicitada será enviada a tu correo en unos momentos.
+                  </p>
+                  <button>Volver a mis cursos</button>
                </div>
             </div>
          </div>
@@ -60,96 +51,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
-
-export default {
-   data() {
-      return {
-         mostrar: '',
-         id: '',
-         orden: {
-            user: '',
-            cursos: [],
-            codigo: '123abc',
-            cupon: '1',
-            total: '100',
-         },
-         cuponIngresado: '',
-         arregloCupon: [],
-         self: this,
-      };
-   },
-   computed: {
-      ...mapState(['cursoAgregado']),
-      ...mapState(['subtotal']),
-   },
-   methods: {
-      ...mapActions(['eliminarCursoAction']),
-      // mostrarMenu() {
-      //    if (this.mostrar == 'show') {
-      //       this.mostrar = '';
-      //    } else {
-      //       this.mostrar = 'show';
-      //    }
-      // },
-      eliminarId(id) {
-         this.eliminarCursoAction(id);
-      },
-      validarCarrito() {
-         if (localStorage.getItem('id del token')) {
-            this.id = localStorage.getItem('id del token');
-
-            const cursoRecorrido = this.cursoAgregado.map((element) => {
-               return element.id;
-            });
-
-            const validarCupon = this.arregloCupon.find((element) => {
-               return element.nombre === this.cuponIngresado.toLowerCase();
-            });
-
-            if (validarCupon === undefined) {
-               alert('cupon no existe');
-               this.orden.user = this.id;
-               this.orden.cursos = cursoRecorrido;
-               this.orden.cupon = '';
-               this.postCupon();
-               this.$router.push(`/pagos/${this.id}`);
-            } else {
-               this.orden.user = this.id;
-               this.orden.cursos = cursoRecorrido;
-               this.orden.cupon = validarCupon.id;
-               this.postCupon();
-               this.$router.push(`/pagos/${this.id}`);
-            }
-         } else {
-            this.$router.push('/registrarse');
-         }
-      },
-
-      async getCupon() {
-         const response = await fetch('https://no-llores-mas.herokuapp.com/orders/cupones');
-         const data = await response.json();
-         this.arregloCupon = data;
-      },
-
-      async postCupon() {
-         const request = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.orden),
-         };
-         const response = await fetch('https://no-llores-mas.herokuapp.com/orders/orders', request);
-         const data = await response.json();
-         this.self.$store.state.order.push(data);
-      },
-   },
-
-   created() {
-      this.getCupon();
-   },
-
-   name: 'Carrito',
-};
+export default {};
 </script>
 
 <style scoped>
@@ -264,13 +166,14 @@ nav {
    margin-left: 20px;
    display: flex;
    flex-direction: column;
-   justify-content: space-between;
+   justify-content: flex-start;
    padding: 8px 0;
 }
 .curso-text h3 {
    font-family: 'Roboto', sans-serif;
    font-size: 16px;
    font-weight: bold;
+   margin-bottom: 16px;
 }
 .curso-text p {
    font-family: 'Roboto', sans-serif;
@@ -312,17 +215,18 @@ nav {
    border-radius: 5px;
    background-color: white;
 }
-.form div {
+.fin {
    font-family: 'Poppins', sans-serif;
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   margin-bottom: 20px;
-   color: #5640ff;
-   font-weight: bold;
    font-size: 20px;
+   font-weight: bold;
+   margin-bottom: 20px;
 }
-
+.boleta {
+   font-family: 'Roboto', sans-serif;
+   font-size: 16px;
+   font-weight: 300;
+   margin-bottom: 20px;
+}
 .form input {
    width: 100%;
    padding: 16px;

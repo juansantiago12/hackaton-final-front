@@ -22,18 +22,17 @@
             <router-link to="/login">Iniciar Sesión</router-link>
             <router-link to="/registrarse">Registrarse</router-link>
          </div>
-         <div class="formulario">
-            <div class="inicio-more">
-               <p>Puedes iniciar sesión con:</p>
-               <p>También puedes iniciar sesión con tu correo</p>
-            </div>
-            <form @submit.prevent="getLogin">
+         <form @submit.prevent="getLogin" class="formulario">
+            <div class="form-1">
+               <p>Puedes iniciar sesión con tu correo</p>
                <input type="text" placeholder="Correo electrónico" v-model="login.email" />
                <input type="password" placeholder="Contraseña" v-model="login.password" />
+            </div>
+            <div class="form-2">
                <input type="submit" value="Ingresar" class="btn" @click="postLogin()" />
                <a href="#" class="password">Olvidaste tu contraseña?</a>
-            </form>
-         </div>
+            </div>
+         </form>
       </div>
    </section>
    <router-view />
@@ -158,27 +157,11 @@ footer {
    margin-bottom: 50px;
    display: block;
 }
-.formulario {
-   padding: 16px 40px;
-   display: grid;
-   grid-template-rows: 50px 160px 1fr;
+.inicio {
+   margin-left: auto;
+   margin-right: auto;
+   width: 85%;
 }
-
-/* .inicio {
-   display: flex;
-   align-items: center;
-} */
-.inicio-more p {
-   text-align: center;
-   margin-top: 20px;
-}
-.inicio-img {
-   margin-top: 20px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
-
 .inicio-nav {
    display: flex;
    justify-content: space-around;
@@ -189,29 +172,63 @@ footer {
    color: black;
    display: inline-block;
    font-family: 'Poppins', sans-serif;
-   font-weight: 900;
+   font-weight: bold;
    font-size: 14px;
    padding-bottom: 8px;
 }
 .inicio-nav a:hover {
    border-bottom: 4px solid black;
 }
-.inicio input {
+
+.formulario {
+   height: calc(100% - 80px);
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+}
+.form-1 p {
+   text-align: center;
+   font-family: 'Poppins', sans-serif;
+   font-size: 13px;
+   font-weight: 400;
+   margin-bottom: 30px;
+}
+.formulario input {
+   display: inline-block;
    width: 100%;
-   padding: 15px 10px;
-   margin-bottom: 16px;
+   padding: 16px 20px;
    border-radius: 5px;
    border: 1px solid black;
+   margin-bottom: 20px;
 }
-.inicio .btn {
-   margin-top: 100px;
+::placeholder {
+   opacity: 0.7;
+}
+.form-2 input {
+   font-family: 'Poppins', sans-serif;
    background-color: #5640ff;
    color: white;
+   font-size: 16px;
    font-weight: bold;
 }
-.password {
+.form-2 a {
    color: #5640ff;
-   border-bottom: 1px solid #5640ff;
+   display: block;
+   text-align: center;
+   font-family: 'Poppins', sans-serif;
+   font-size: 14px;
    font-weight: bold;
+}
+
+@media screen and (max-width: 970px) {
+   .login {
+      grid-template-columns: 1fr;
+   }
+   .login-content {
+      display: none;
+   }
+   .inicio {
+      max-width: 500px;
+   }
 }
 </style>
