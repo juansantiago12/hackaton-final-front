@@ -61,6 +61,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import swal from 'sweetalert';
 
 export default {
    data() {
@@ -108,13 +109,14 @@ export default {
             });
 
             if (validarCupon === undefined) {
-               alert('cupon no existe');
+               swal('Oops!', 'Cupón no existe!', 'error');
                this.orden.user = this.id;
                this.orden.cursos = cursoRecorrido;
                this.orden.cupon = '';
                this.postCupon();
                this.$router.push(`/pagos/${this.id}`);
             } else {
+               swal('Cupón válido!', 'You clicked the button!', 'success');
                this.orden.user = this.id;
                this.orden.cursos = cursoRecorrido;
                this.orden.cupon = validarCupon.id;
@@ -140,7 +142,7 @@ export default {
          };
          const response = await fetch('https://no-llores-mas.herokuapp.com/orders/orders', request);
          const data = await response.json();
-         this.self.$store.state.order.push(data);
+         this.self.$store.state.order = data;
       },
    },
 

@@ -39,7 +39,7 @@ const routes = [
       component: Registrarse,
    },
    {
-      path: '/usuarios/:id',
+      path: '/usuarios',
       name: 'Usuarios',
       component: () => import(/* webpackChunkName: "about" */ '../views/Usuarios.vue'),
    },

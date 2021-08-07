@@ -35,7 +35,7 @@
                </div>
             </div>
             <div class="form-2">
-               <input type="submit" value="Ingresar" class="btn" @click="postRegistro()" />
+               <input type="submit" value="Ingresar" class="btn" />
             </div>
          </form>
       </div>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import swal from 'sweetalert';
 export default {
    data() {
       return {
@@ -66,31 +67,42 @@ export default {
             this.registro.password !== this.password2 ||
             this.aceptar === false
          ) {
-            alert('falta campos por llenar o contraseñas no coinciden');
+            swal('Oops!', 'Falta campos por llenar o contraseñas no coinciden!', 'error');
          } else {
             // console.log(this.registro);
-            alert('registro exitoso');
+            this.postRegistro();
          }
       },
 
       async postRegistro() {
-         const request = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.registro),
-         };
-         const response = await fetch(
-            'https://no-llores-mas.herokuapp.com/auth/register/',
-            request
-         );
-         const data = await response.json();
-         console.log(data);
-         this.registro = {
-            email: '',
-            name: '',
-            password: '',
-         };
-         this.password2 = '';
+         try {
+            const request = {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify(this.registro),
+            };
+            const response = await fetch(
+               'https://no-llores-mas.herokuapp.com/auth/register/',
+               request
+            );
+            const data = await response.json();
+            console.log(data);
+            this.registro = {
+               email: '',
+               name: '',
+               password: '',
+            };
+            this.password2 = '';
+            swal('Registro exitoso', 'You clicked the button!', 'success');
+         } catch (error) {
+            swal('Oops!', 'correo o contraseña inválido!', 'error');
+            this.registro = {
+               email: '',
+               name: '',
+               password: '',
+            };
+            this.password2 = '';
+         }
       },
    },
 };

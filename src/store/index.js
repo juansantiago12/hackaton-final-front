@@ -5,7 +5,7 @@ export default createStore({
       cursos: [],
       cursoAgregado: [],
       subtotal: 0,
-      order: [],
+      order: {},
       // cursoAgregadoFinal: [],
    },
    mutations: {

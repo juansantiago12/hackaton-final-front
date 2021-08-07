@@ -23,13 +23,34 @@
                   Selecciona tu método de pago
                </h3>
                <div>
-                  <button class="col-sm-3 col-3 btn-primary-pagos rounded1 border border-white">
+                  <button
+                     class="
+                col-sm-3 col-3
+                btn-primary-pagos
+                rounded1
+                border border-white
+              "
+                  >
                      Tarjeta de crédito
                   </button>
-                  <button class="col-sm-3 col-3 btn-primary-pagos rounded1 border border-white">
+                  <button
+                     class="
+                col-sm-3 col-3
+                btn-primary-pagos
+                rounded1
+                border border-white
+              "
+                  >
                      Tarjeta de débito
                   </button>
-                  <button class="col-sm-3 col-3 btn-primary-pagos rounded1 border border-white">
+                  <button
+                     class="
+                col-sm-3 col-3
+                btn-primary-pagos
+                rounded1
+                border border-white
+              "
+                  >
                      Depósito Pago Efectivo
                   </button>
                </div>
@@ -199,10 +220,17 @@
                   <button type="submit" class="btn btn-primary button">
                      Finalizar Compra
                   </button>
+                  <div class="container">
+                     <paypal
+                        :amount="amount"
+                        id="paypal-button-container"
+                        style="margin-left = 50px"
+                     ></paypal>
+                  </div>
                </form>
             </div>
 
-            <div class="col-sm-4 col-12 wenas2">
+            <section class="col-sm-4 col-12 wenas2">
                <div
                   class="row mt-5"
                   style="background-color: white; width: 500px; border-radius: 10px"
@@ -212,6 +240,7 @@
                      <h3 class="fs-6 col-6" style="width: 250px">
                         {{ curso.nombre }}
                      </h3>
+
                      <p style="margin-left: 320px; margin-top: -30px">S/.{{ curso.precio }}</p>
                   </div>
 
@@ -223,11 +252,20 @@
                         class="fw-bold fs-4"
                         style="color: #678cd9; margin-left: 290px; margin-top: -53px"
                      >
-                        S/ {{ order[0].total }}
+                        S/ {{ order.total }}
                      </p>
                   </div>
                </div>
-            </div>
+            </section>
+         </div>
+      </div>
+      <div style="display: none">
+         <div id="paypal-button-container"></div>
+         <div v-if="success" class="alert alert-success">
+            <strong>Success!</strong> Payment successfuly done
+         </div>
+         <div v-if="error" class="alert alert-danger">
+            <strong>Ooops!</strong> something went wrong
          </div>
       </div>
    </body>
@@ -235,11 +273,10 @@
 
 <script>
 import { mapState } from 'vuex';
-
 export default {
+   name: 'Pago',
    data() {
       return {
-         nombre: 'juan',
          self: this,
       };
    },
@@ -247,7 +284,32 @@ export default {
       ...mapState(['order', 'cursoAgregado']),
    },
    methods: {},
-
+   updated() {
+      const total = this.self.$store.state.order.total;
+      paypal
+         .Buttons({
+            createOrder: function(data, actions) {
+               // This function sets up the details of the transaction, including the amount and line item details.
+               return actions.order.create({
+                  purchase_units: [
+                     {
+                        amount: {
+                           value: total,
+                        },
+                     },
+                  ],
+               });
+            },
+            onApprove: function(data, actions) {
+               // This function captures the funds from the transaction.
+               return actions.order.capture().then(function(details) {
+                  // This function shows a transaction success message to your buyer.
+                  alert('Transaction completed by ' + details.payer.name.given_name);
+               });
+            },
+         })
+         .render('#paypal-button-container');
+   },
    created() {
       this.cursoAgregado;
       this.order;

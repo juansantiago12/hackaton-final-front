@@ -25,11 +25,11 @@
          <form @submit.prevent="getLogin" class="formulario">
             <div class="form-1">
                <p>Puedes iniciar sesión con tu correo</p>
-               <input type="text" placeholder="Correo electrónico" v-model="login.email" />
+               <input type="email" placeholder="Correo electrónico" v-model="login.email" />
                <input type="password" placeholder="Contraseña" v-model="login.password" />
             </div>
             <div class="form-2">
-               <input type="submit" value="Ingresar" class="btn" @click="postLogin()" />
+               <input type="submit" value="Ingresar" class="btn" />
                <a href="#" class="password">Olvidaste tu contraseña?</a>
             </div>
          </form>
@@ -40,6 +40,7 @@
 
 <script>
 import jwt_decode from 'jwt-decode';
+import swal from 'sweetalert';
 
 export default {
    data() {
@@ -56,32 +57,43 @@ export default {
    methods: {
       getLogin() {
          if (this.login.email === '' || this.login.password === '') {
-            alert('falta campos por llenar');
+            swal('Oops!', 'Falta campos por llenar!', 'error');
          } else {
             // console.log(this.login);
-            alert('login exitoso');
+            this.postLogin();
          }
       },
 
       async postLogin() {
-         const request = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.login),
-         };
-         const response = await fetch('https://no-llores-mas.herokuapp.com/auth/login/', request);
-         const data = await response.json();
-         this.token = data.tokens.access;
-         let decoded = jwt_decode(this.token);
-         this.idToken = decoded.user_id;
-         console.log(this.idToken);
-         this.login = {
-            email: '',
-            password: '',
-         };
-         this.$router.push(`/usuarios/${this.idToken}`);
-
-         localStorage.setItem('id del token', this.idToken);
+         try {
+            const request = {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify(this.login),
+            };
+            const response = await fetch(
+               'https://no-llores-mas.herokuapp.com/auth/login/',
+               request
+            );
+            const data = await response.json();
+            this.token = data.tokens.access;
+            let decoded = jwt_decode(this.token);
+            this.idToken = decoded.user_id;
+            console.log(this.idToken);
+            this.login = {
+               email: '',
+               password: '',
+            };
+            localStorage.setItem('id del token', this.idToken);
+            swal('Login exitoso', 'You clicked the button!', 'success');
+            this.$router.push(`/carrito`);
+         } catch (error) {
+            swal('Oops!', 'correo o contraseña inválido!', 'error');
+            this.login = {
+               email: '',
+               password: '',
+            };
+         }
       },
    },
 };
