@@ -142,6 +142,7 @@
 <script>
 // import ListaCursos from '@/components/ListaCursos.vue';
 import { mapActions, mapState } from 'vuex';
+import swal from 'sweetalert';
 
 export default {
    data() {
@@ -184,7 +185,7 @@ export default {
             this.user.correo === '' ||
             this.aceptar === false
          ) {
-            alert('falta campos por llenar');
+            swal('Oops!', 'Falta campos por llenar!', 'error');
          } else {
             console.log(this.user);
          }

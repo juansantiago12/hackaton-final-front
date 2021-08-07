@@ -94,6 +94,7 @@ export default {
             };
             this.password2 = '';
             swal('Registro exitoso', 'You clicked the button!', 'success');
+            this.$router.push(`/login`);
          } catch (error) {
             swal('Oops!', 'correo o contraseña inválido!', 'error');
             this.registro = {

@@ -27,14 +27,18 @@
          <div class="carrito-content">
             <div class="cursos">
                <h2>Resumen de compra</h2>
-               <article>
-                  <img class="curso-img" src="../assets/curso.jpg" alt="" />
+               <article v-for="(curso, index) in cursoAgregado" :key="index">
+                  <img class="curso-img" :src="curso.image" alt="" />
                   <div class="curso-text">
-                     <h3>Cualquier curso</h3>
+                     <h3>{{ curso.nombre }}</h3>
                      <p>Descuento 25%</p>
                   </div>
-                  <p class="curso-precio">S/ 100</p>
+                  <p class="curso-precio">S/ {{ curso.precio }}</p>
                </article>
+               <div class="curso-total">
+                  <p>Precio Final con el descuento</p>
+                  <p>S/ {{ order.total }}</p>
+               </div>
             </div>
             <div class="subtotal">
                <div class="form">
@@ -51,7 +55,18 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from 'vuex';
+
+export default {
+   data() {
+      return {
+         self: this,
+      };
+   },
+   computed: {
+      ...mapState(['order', 'cursoAgregado']),
+   },
+};
 </script>
 
 <style scoped>
@@ -201,17 +216,28 @@ nav {
    font-weight: bold;
    text-align: center;
 }
-
+.curso-total {
+   border-top: 1px solid black;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 20px 0;
+   color: #5640ff;
+   font-weight: bold;
+   font-family: 'Poppins', sans-serif;
+}
 /* subtotal  */
 .subtotal {
    display: flex;
    align-items: center;
+   justify-content: center;
+   padding: 20px;
 }
 .form {
-   width: 90%;
+   width: 100%;
    margin-right: auto;
    margin-left: auto;
-   padding: 50px;
+   padding: 30px;
    border-radius: 5px;
    background-color: white;
 }

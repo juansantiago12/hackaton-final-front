@@ -39,11 +39,6 @@ const routes = [
       component: Registrarse,
    },
    {
-      path: '/usuarios',
-      name: 'Usuarios',
-      component: () => import(/* webpackChunkName: "about" */ '../views/Usuarios.vue'),
-   },
-   {
       path: '/pagos/:id',
       name: 'Pagos',
       component: () => import(/* webpackChunkName: "about" */ '../views/Pagos.vue'),
